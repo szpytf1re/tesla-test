@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block head_imports %}
+    <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'line']});
+    </script>
+{% endblock %}
+
+{% block content %}
+    <!-- MAIN CONTENT -->
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Filter</h4>
+            <form action="" method="get">
+                <div>
+                    {{ filter_form.purchase_date.errors }}
+                    {{ filter_form.purchase_date.label }}
+                    {{ filter_form.purchase_date }}
+                </div>
+
+                <div>
+                    {{ filter_form.purchase_quantity.errors }}
+                    {{ filter_form.purchase_quantity.label }}
+                    {{ filter_form.purchase_quantity }}
+                </div>
+
+                <div>
+                    {{ filter_form.start_date.errors }}
+                    {{ filter_form.start_date.label }}
+                    {{ filter_form.start_date }}
+                </div>
+
+                <div>
+                    {{ filter_form.end_date.errors }}
+                    {{ filter_form.end_date.label }}
+                    {{ filter_form.end_date }}
+                </div>
+
+                <div>
+                    <input type="submit" class="btn" value="Filter returns"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-9">
+            {% if save_msg %}<h1>{{ save_msg }}</h1>{% endif %}
+            {% if error_msg %}<h1>{{ error_msg }}</h1>{% endif %}
+            <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+
+    <!-- SAVE EXTREME RETURN -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Extreme return for the given time period</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                    <th>Label</th>
+                    <th>Return date</th>
+                    <th>Return amount</th>
+                    <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ extreme_return_form.label.errors }}
+                            {{ extreme_return_form.label }}
+                        </td>
+                        <td>
+                            {{ extreme_return_form.return_date.errors }}
+                            {{ extreme_return_form.return_date }}
+                        </td>
+                        <td>
+                            {{ extreme_return_form.return_amount.errors }}
+                            {{ extreme_return_form.return_amount }}
+                        </td>
+                        <td>
+                            <input type="submit" class="btn" value="Save"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyjs %}
+    function drawChart() {
+       // Define the chart to be drawn.
+       var data = new google.visualization.DataTable();
+       data.addColumn('string', 'Date');
+       data.addColumn('number', 'TSLA returns');
+       data.addRows([
+        {% for return, date in returns_data %}
+            ['{{ date }}',  {{ return }}]{% if not forloop.last %},{% endif %}
+        {% endfor %}
+       ]);
+
+       // Set chart options
+       var options = {'title' : 'Returns at market close',
+          hAxis: {
+             title: 'Date'
+          },
+          vAxis: {
+             title: 'Returns (USD)'
+          },
+          'width':550,
+          'height':400,
+          pointsVisible: false
+       };
+
+       // Instantiate and draw the chart.
+       var chart = new google.visualization.LineChart(document.getElementById('container'));
+       chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart);
+{% endblock %}

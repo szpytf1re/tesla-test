@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="page-section">
+        <div class="col-sm-12">
+            <div class="row">
+                <h1>
+                    Tesla Returns
+                </h1>
+
+                <h4>
+                    Please enter the date you purchased Tesla stock and the number of shares purchased
+                </h4>
+
+                <form action="" method="get">
+                    <div>
+                        {{ form.purchase_date.errors }}
+                        {{ form.purchase_date.label }}
+                        <input id="id_purchase_date" name="purchase_date" type="text" required="">
+                    </div>
+                    <div>
+                        {{ form.purchase_quantity.errors }}
+                        {{ form.purchase_quantity.label }}
+                        {{ form.purchase_quantity }}
+                    </div>
+
+                    <input type="submit" class="btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyjs %}
+    $( function() {
+        $( "#id_purchase_date" ).datepicker();
+    });
+{% endblock %}
