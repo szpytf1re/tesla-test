@@ -6,7 +6,8 @@ from django.forms.fields import DateField, IntegerField
 from django.forms.forms import Form
 from yahoo_finance import Share
 
-from base_util.date_util import date_today, date_weeks_ago, date_yahoo_finance_fmt, date_weeks_from_now
+from base_util.date_util import date_today, date_weeks_ago, date_yahoo_finance_fmt, date_weeks_from_now, \
+    date_us_short_fmt
 
 TSLA_START_DATE = date(2010, 6, 28)
 TSLA_SYMBOL = 'TSLA'
@@ -35,13 +36,16 @@ class TeslaReturnFilterForm(Form):
         todays_date = date_today()
 
         if purchase_date <= TSLA_START_DATE:
-            raise ValidationError('Purchase date cannot be before %s.' % TSLA_START_DATE.strftime('%m/%d/%y'))
+            raise ValidationError('Purchase date cannot be before %s.' % date_us_short_fmt(TSLA_START_DATE))
 
         if start_date and start_date <= TSLA_START_DATE:
-            raise ValidationError('Start date cannot be before %s.' % TSLA_START_DATE.strftime('%m/%d/%y'))
+            raise ValidationError('Start date cannot be before %s.' % date_us_short_fmt(TSLA_START_DATE))
 
         if end_date and end_date > todays_date:
             raise ValidationError('End date cannot be in the future.')
+
+        if start_date and start_date > todays_date:
+            raise ValidationError('Start date cannot be in the future.')
 
         if start_date and end_date and end_date < start_date:
             raise ValidationError('Start date must be before end date.')
