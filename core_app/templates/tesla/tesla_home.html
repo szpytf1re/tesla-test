@@ -1,32 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="page-section">
+    <div class="row">
         <div class="col-sm-12">
-            <div class="row">
-                <h1>
-                    Tesla Returns
-                </h1>
+            <h4>
+                Please enter number of Tesla shares purchased and the date of purchase.
+            </h4>
 
-                <h4>
-                    Please enter the date you purchased Tesla stock and the number of shares purchased
-                </h4>
+            <form action="" method="get">
 
-                <form action="" method="get">
-                    <div>
-                        {{ form.purchase_date.errors }}
-                        {{ form.purchase_date.label }}
-                        <input id="id_purchase_date" name="purchase_date" type="text" required="">
-                    </div>
-                    <div>
-                        {{ form.purchase_quantity.errors }}
-                        {{ form.purchase_quantity.label }}
-                        {{ form.purchase_quantity }}
-                    </div>
+                {{ form.non_field_errors }}
 
-                    <input type="submit" class="btn"/>
-                </form>
-            </div>
+                <table class="home-filter-table">
+                    <tr>
+                        <td>
+                            {{ form.purchase_date.errors }}
+                            {{ form.purchase_date.label }}
+                        </td>
+                        <td>
+                            {{ form.purchase_date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ form.purchase_quantity.errors }}
+                            {{ form.purchase_quantity.label }}
+                        </td>
+                        <td>
+                            {{ form.purchase_quantity }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="input-wrapper">
+                    <input type="submit" class="btn" value="Get returns"/>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

@@ -7,3 +7,6 @@ class TeslaReturn(Model):
     return_date = DateField()
     return_amount = DecimalField(max_digits=20, decimal_places=10)
     created_date = DateTimeField(auto_now_add=True)
+
+    class Meta(object):
+        db_table = 'tesla_return'

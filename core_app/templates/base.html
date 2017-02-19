@@ -4,14 +4,9 @@
 <head>
     <title>Tesla Test</title>
 
-    <!-- FONTS -->
-    <link href='//fonts.googleapis.com/css?family=Raleway:300,400,600' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
-
     <!-- CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
     <!-- INLINE FOR PURPOSES OF TEST. NOTE: NOT PRODUCTION READY -->
     <style>
@@ -19,11 +14,44 @@
             background-color: #f1f1f1;
         }
 
+        .header {
+            margin-bottom: 20px;
+        }
+
         #content-wrapper {
             width: 80%;
             margin: 0 auto;
             background-color: #ffffff;
             padding: 25px;
+        }
+
+        .home-filter-table td {
+            padding-right: 15px;
+            padding-top: 15px;
+        }
+
+        .graph-container-wrapper {
+            width: 550px;
+            height: 450px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .input-wrapper {
+            margin-top: 10px;
+        }
+
+        .extreme-returns-wrapper {
+            margin-top: 30px;
+        }
+
+        .extreme-returns-table {
+            margin-top: 20px;
+        }
+
+        .extreme-returns-table td {
+            padding-right: 20px;
+            padding-top: 15px;
         }
     </style>
 
@@ -36,6 +64,13 @@
 <body>
 
 <div id="content-wrapper">
+    <div class="row header">
+        <div class="col-sm-12">
+            <h2>
+                <a href="{% url 'tesla_home' %}">Tesla Returns</a>
+            </h2>
+        </div>
+    </div>
     {% block content %}
     {% endblock %}
 </div>
