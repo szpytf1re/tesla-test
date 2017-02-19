@@ -8,8 +8,9 @@
 {% endblock %}
 
 {% block content %}
-    <!-- MAIN CONTENT -->
     <div class="row">
+
+        <!-- FILTER FORM -->
         <div class="col-sm-3">
             <h4>Filter</h4>
             <form action="" method="get">
@@ -45,6 +46,8 @@
                 </div>
             </form>
         </div>
+
+        <!-- RETURNS GRAPH -->
         <div class="col-sm-9 graph-container-wrapper">
             <h4>Returns at market close</h4>
 
@@ -55,9 +58,10 @@
             {% endif %}
             <div id="graph-container"></div>
         </div>
+
     </div>
 
-    <!-- SAVE EXTREME RETURN -->
+    <!-- SAVE EXTREME RETURNS -->
     {% if returns_data %}
         <div class="row extreme-returns-wrapper">
             <div class="col-sm-12">
